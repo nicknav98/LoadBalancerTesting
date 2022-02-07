@@ -1,0 +1,4 @@
+#Ignore local python interpreter 
+/venv
+#ignore local database migrations files
+/migrations
