@@ -2,3 +2,5 @@
 /venv
 #ignore local database migrations files
 /migrations
+.idea/
+
