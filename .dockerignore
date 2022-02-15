@@ -1,0 +1,5 @@
+#ignore docker files
+Dockerfile
+docker-compose.yaml
+./venv
+./postgres_data
