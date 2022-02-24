@@ -3,3 +3,5 @@
 #ignore local database migrations files
 /migrations
 .idea/
+/postgres_data
+
