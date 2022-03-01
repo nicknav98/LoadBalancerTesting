@@ -15,6 +15,7 @@ services:
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
 
+
   pgBouncer:
     image: bitnami/pgbouncer:latest
 
