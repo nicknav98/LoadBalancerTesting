@@ -7,7 +7,7 @@ services:
   postgres:
     image: postgres:14
     ports:
-      - '5433:5433'
+      - '5432:5432'
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=admin
@@ -15,37 +15,15 @@ services:
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
 
-  pgpool:
-    image: bitnami/pgpool:latest
-    ports:
-      - '5432:5432'
-    volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+  pgBouncer:
+    image: bitnami/pgbouncer:latest
 
     environment:
-      - POSTGRESQL_POSTGRES_PASSWORD=password
       - POSTGRESQL_USERNAME=admin
       - POSTGRESQL_PASSWORD=password
       - POSTGRESQL_DATABASE=WorkoutsDB
+      - POSTGRESQL_HOST=postgres
 
-    healthcheck:
-      test: ["CMD","/opt/bitnami/scripts/pgpool/health-check.sh"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-
-
-  pgadmin:
-    image: dpage/pgadmin4
-    depends_on:
-      - postgres
-    restart: always
-    ports:
-      - '5555:80'
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=user@domain.com
-      - PGADMIN_DEFAULT_PASSWORD=password
 
   app:
     image: nicknav98/gymplanner:latest
