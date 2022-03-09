@@ -4,7 +4,7 @@ networks:
     driver: bridge
 
 services:
-  postgres:
+  postgresql:
     image: postgres:14
     ports:
       - '5432:5432'
@@ -18,12 +18,11 @@ services:
 
   pgBouncer:
     image: bitnami/pgbouncer:latest
-
     environment:
-      - POSTGRESQL_USERNAME=admin
       - POSTGRESQL_PASSWORD=password
-      - POSTGRESQL_DATABASE=WorkoutsDB
-      - POSTGRESQL_HOST=postgres
+    volumes:
+      - ./pgbouncer.ini:/bitnami/pgbouncer/conf/pgbouncer.ini
+      - ./userlist.txt:/bitnami/pgbouncer/conf/userlist.txt
 
 
   app:
