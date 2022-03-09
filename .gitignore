@@ -1,5 +1,6 @@
 #Ignore local python interpreter 
 /venv
+/venv2
 #ignore local database migrations files
 /migrations
 .idea/
