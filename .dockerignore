@@ -3,4 +3,3 @@ Dockerfile
 docker-compose.yaml
 ./venv
 ./venv2
-./postgres_data
