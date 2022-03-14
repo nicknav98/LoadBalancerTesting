@@ -3,7 +3,6 @@ from extensions import db
 
 class Gym(db.Model):
     __bind_key__ = 'gyms'
-    __tablename__ = 'gyms'
     id = db.Column(db.Integer, primary_key=True)
     gymName = db.Column(db.String(50), unique=True)
     pricePerMonth = db.Column(db.Integer)

@@ -11,9 +11,10 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=admin
-      - POSTGRES_DB=WorkoutsDB
+      - POSTGRES_DB=postgres
+      - POSTGRES_MULTIPLE_DATABASES=WorkoutsDB,GymsDB
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - ./docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
 
 
   pgBouncer:
