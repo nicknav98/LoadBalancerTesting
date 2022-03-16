@@ -4,33 +4,38 @@ networks:
     driver: bridge
 
 services:
-  postgresql:
-    image: postgres:14
+  WorkoutsDB:
+    image: bitnami/postgresql:14
     ports:
       - '5432:5432'
     environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=admin
-      - POSTGRES_DB=postgres
-      - POSTGRES_MULTIPLE_DATABASES=WorkoutsDB,GymsDB
-    volumes:
-      - ./docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_USER=admin
+      - POSTGRESQL_DATABASE=WorkoutsDB
+
+  GymsDB:
+    image: bitnami/postgresql:14
+    ports:
+      - '5433:5432'
+    environment:
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_USER=admin
+      - POSTGRESQL_DATABASE=GymsDB
+
 
 
   pgBouncer:
     image: bitnami/pgbouncer:latest
     environment:
       - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_USER=admin
+      - POSTGRESQL_HOST=WorkoutsDB
     volumes:
-      - ./pgbouncer.ini:/bitnami/pgbouncer/conf/pgbouncer.ini
-      - ./userlist.txt:/bitnami/pgbouncer/conf/userlist.txt
+      - ./pgconf:/bitnami/pgbouncer/conf
+
 
 
   app:
     image: nicknav98/gymplanner:latest
     ports:
       - '5050:5050'
-
-volumes:
-  postgres_data:
-    driver: local
