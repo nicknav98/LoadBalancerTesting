@@ -16,8 +16,9 @@ from resources.gyms import GymListResource, GymResource, GymPublishResource
 
 def create_app():
     app = Flask(__name__)
-    db.init_app(app)
     app.config.from_object(Config)
+
+
 
     register_extensions(app)
     register_resources(app)
@@ -60,5 +61,6 @@ def register_resources(app):
 
 if __name__ == '__main__':
     app = create_app()
-
+    with app.app_context():
+        db.create_all()
     app.run(port=5050, debug=True)

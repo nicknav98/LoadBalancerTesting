@@ -17,15 +17,13 @@ class GymListResource(Resource):
 
         return gym_list_schema.dump(gyms), HTTPStatus.OK
 
-    @jwt_required
+
     def post(self):
         json_data = request.get_json()
-        current_user = get_jwt_identity()
         data, errors = gym_schema.load(data=json_data)
         if errors:
             return {'message': 'Validation errors', 'errors': errors}, HTTPStatus.BAD_REQUEST
         gym = Gym(**data)
-
         gym.save()
 
         return gym_schema.dump(gym), HTTPStatus.CREATED
