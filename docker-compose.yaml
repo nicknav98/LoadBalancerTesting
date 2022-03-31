@@ -33,6 +33,8 @@ services:
     volumes:
       - ./pgconf:/bitnami/pgbouncer/conf
 
+  pgBench:
+    image: xridge/pgbench
 
 
   app:
